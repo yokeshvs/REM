@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration
+	xmlns="http://logging.apache.org/log4j/2.0/config">
+	<Properties>
+		<Property name="basePath">C:\Users\Yokesh\Documents\workspace\logs
+		</Property>
+	</Properties>
+	<Appenders>
+		<RollingFile name="DAILY_LOG"
+			fileName="${basePath}/REM.log"
+			filePattern="${basePath}/%d{ddMMyyyy}_REM.log">
+			<PatternLayout
+				pattern="[%d{a h:mm:ss}] %-5p [%C.%M()] - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+		</RollingFile>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="[%d{yyyy-MM-dd a h:mm:ss}] %-5p [%C.%M()] - %m%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="debug">
+			<AppenderRef ref="DAILY_LOG" />
+			<AppenderRef ref="STDOUT" />
+		</Root>
+	</Loggers>
+</Configuration>
