@@ -3,15 +3,15 @@ package com.core.listener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.scheduling.backportconcurrent.ThreadPoolTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.stereotype.Component;
 
 import com.core.constants.REMConstants;
 import com.core.listener.callback.REMMqttCallbackHandler;
 
+@Component
 public class REMListener {
 
 	private static final Logger LOGGER = LogManager.getLogger("REMListener");
@@ -34,12 +34,14 @@ public class REMListener {
 		this.listenerEnabled = listenerEnabled;
 	}
 
-	@PostConstruct
 	public void startTopicListener() {
 		LOGGER.debug("REMListener::startTopicListener");
-		List<String> topics = getListOfMqttTopics();
-		REMMqttCallbackHandler callbackHandler = new REMMqttCallbackHandler(topics, remTaskExecutor);
-		new Thread(callbackHandler).start();
+		if (isListenerEnabled()) {
+			List<String> topics = getListOfMqttTopics();
+			LOGGER.debug("REMListener::startTopicListener::remTaskExecutor: {}", remTaskExecutor);
+			REMMqttCallbackHandler callbackHandler = new REMMqttCallbackHandler(topics, remTaskExecutor);
+			new Thread(callbackHandler).start();
+		}
 	}
 
 	private List<String> getListOfMqttTopics() {

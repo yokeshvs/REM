@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.springframework.scheduling.backportconcurrent.ThreadPoolTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.core.constants.REMConstants;
 
@@ -58,7 +58,7 @@ public class REMMqttCallbackHandler implements Runnable {
 			options.setConnectionTimeout(100);
 
 			// Setup a callback
-			client.setCallback(new REMMqttCallback(client, null));
+			client.setCallback(new REMMqttCallback(client, taskExecutor));
 
 			// Connect to the broker
 			client.connect(options);

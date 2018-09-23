@@ -8,9 +8,10 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.core.task.TaskRejectedException;
 import org.springframework.core.task.TaskTimeoutException;
-import org.springframework.scheduling.backportconcurrent.ThreadPoolTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.core.constants.REMConstants;
+
 
 public class REMMqttCallback implements MqttCallback {
 	private static final Logger LOGGER = LogManager.getLogger("REMMqttCallback");
@@ -59,11 +60,16 @@ public class REMMqttCallback implements MqttCallback {
 					}
 				}
 			});
+//			if (topic.equalsIgnoreCase(REMConstants.DEVICE_TOPIC)) {
+//				LOGGER.debug("\n**************\nREMMqttCallback::messageArrived::message: {}\n**************",
+//						message.toString());
+//			}
 		} catch (TaskTimeoutException e) {
 			LOGGER.error("REMMqttCallback::messageArrived::TaskTimeoutException - {}", e.getMessage());
 		} catch (TaskRejectedException e) {
 			LOGGER.error("REMMqttCallback::messageArrived::TaskRejectedException - {}", e.getMessage());
 		} catch (Exception e) {
+			e.printStackTrace();
 			LOGGER.error("REMMqttCallback::messageArrived::Exception - {}", e.getMessage());
 		}
 	}
