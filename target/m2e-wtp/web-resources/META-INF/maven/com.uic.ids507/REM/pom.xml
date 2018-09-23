@@ -9,17 +9,20 @@
 	<name>REM Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
+		<!-- Test class Configuration -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- MQTT Configuration -->
 		<dependency>
 			<groupId>org.eclipse.paho</groupId>
 			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
 			<version>1.1.0</version>
 		</dependency>
+		<!-- Logger Configuration -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
@@ -30,6 +33,27 @@
 			<artifactId>log4j-core</artifactId>
 			<version>2.11.1</version>
 		</dependency>
+		<!-- ThreadPoolTaskExecutor Configuration -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+		<!-- Spring Annotations Configuration -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>3.0.2.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>REM</finalName>
