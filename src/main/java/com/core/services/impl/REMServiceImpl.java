@@ -12,7 +12,7 @@ import com.core.services.REMService;
 @Path("/REMService")
 public class REMServiceImpl implements REMService {
 
-	private static final Logger LOGGER = LogManager.getLogger("REMMqttCallback");
+	private static final Logger LOGGER = LogManager.getLogger("REMServiceImpl");
 	
 	public Response testMethod() {
 		LOGGER.debug("inside test");
