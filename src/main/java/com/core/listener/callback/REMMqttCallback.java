@@ -12,7 +12,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.core.constants.REMConstants;
 
-
 public class REMMqttCallback implements MqttCallback {
 	private static final Logger LOGGER = LogManager.getLogger("REMMqttCallback");
 	private MqttClient client;
@@ -60,10 +59,6 @@ public class REMMqttCallback implements MqttCallback {
 					}
 				}
 			});
-//			if (topic.equalsIgnoreCase(REMConstants.DEVICE_TOPIC)) {
-//				LOGGER.debug("\n**************\nREMMqttCallback::messageArrived::message: {}\n**************",
-//						message.toString());
-//			}
 		} catch (TaskTimeoutException e) {
 			LOGGER.error("REMMqttCallback::messageArrived::TaskTimeoutException - {}", e.getMessage());
 		} catch (TaskRejectedException e) {
