@@ -47,6 +47,7 @@ public class REMListener {
 	private List<String> getListOfMqttTopics() {
 		List<String> topics = new ArrayList<String>();
 		topics.add(REMConstants.DEVICE_TOPIC);
+		topics.add(REMConstants.DEVICE_TOPIC_1);
 		LOGGER.debug("REMListener::getListOfMqttTopics::Topics: {}", topics.toString());
 		return topics;
 	}

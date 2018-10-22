@@ -56,6 +56,9 @@ public class REMMqttCallback implements MqttCallback {
 					if (topic.equalsIgnoreCase(REMConstants.DEVICE_TOPIC)) {
 						LOGGER.debug("\n**************\nREMMqttCallback::messageArrived::message: {}\n**************",
 								message.toString());
+					} else if (topic.equalsIgnoreCase(REMConstants.DEVICE_TOPIC_1)) {
+						LOGGER.debug("\n**************\nREMMqttCallback::messageArrived::message: {}\n**************",
+								message.toString());
 					}
 				}
 			});

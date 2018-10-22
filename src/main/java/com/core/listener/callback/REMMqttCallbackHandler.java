@@ -15,6 +15,7 @@ public class REMMqttCallbackHandler implements Runnable {
 	private static final Logger LOGGER = LogManager.getLogger("REMMqttCallbackHandler");
 	private List<String> mqttTopics;
 	private ThreadPoolTaskExecutor taskExecutor;
+	private Boolean mosquittoEnabled;
 
 	public List<String> getMqttTopics() {
 		return mqttTopics;
@@ -32,6 +33,14 @@ public class REMMqttCallbackHandler implements Runnable {
 		this.taskExecutor = taskExecutor;
 	}
 
+	public Boolean getMosquittoEnabled() {
+		return mosquittoEnabled;
+	}
+
+	public void setMosquittoEnabled(Boolean mosquittoEnabled) {
+		this.mosquittoEnabled = mosquittoEnabled;
+	}
+
 	public REMMqttCallbackHandler() {
 		// TODO Auto-generated constructor stub
 	}
@@ -39,14 +48,15 @@ public class REMMqttCallbackHandler implements Runnable {
 	public REMMqttCallbackHandler(List<String> topics, ThreadPoolTaskExecutor taskExecutor) {
 		this.mqttTopics = topics;
 		this.taskExecutor = taskExecutor;
+		this.mosquittoEnabled = true;
 	}
 
 	@Override
 	public void run() {
-		String mqttServer = "broker.hivemq.com";
+		String mqttServer = mosquittoEnabled ? "test.mosquitto.org" : "broker.hivemq.com";
 		int mqttPort = 1883;
 		try {
-			String serverURI = "tcp://" + mqttServer + ":" + mqttPort;
+			String serverURI = mosquittoEnabled ? "tcp://" + mqttServer : "tcp://" + mqttServer + mqttPort;
 			LOGGER.debug("REMMqttCallbackHandler::run::serverURI - {}", serverURI);
 
 			String clientId = "REMListener-" + ((int) (Math.random() * 9000) + 1000);
