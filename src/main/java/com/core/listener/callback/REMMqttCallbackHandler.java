@@ -10,12 +10,14 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.core.constants.REMConstants;
+import com.core.services.FirebaseService;
 
 public class REMMqttCallbackHandler implements Runnable {
 	private static final Logger LOGGER = LogManager.getLogger("REMMqttCallbackHandler");
 	private List<String> mqttTopics;
 	private ThreadPoolTaskExecutor taskExecutor;
 	private Boolean mosquittoEnabled;
+	private FirebaseService firebaseService;
 
 	public List<String> getMqttTopics() {
 		return mqttTopics;
@@ -45,10 +47,11 @@ public class REMMqttCallbackHandler implements Runnable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public REMMqttCallbackHandler(List<String> topics, ThreadPoolTaskExecutor taskExecutor) {
+	public REMMqttCallbackHandler(List<String> topics, ThreadPoolTaskExecutor taskExecutor, FirebaseService firebaseService) {
 		this.mqttTopics = topics;
 		this.taskExecutor = taskExecutor;
 		this.mosquittoEnabled = true;
+		this.firebaseService = firebaseService;
 	}
 
 	@Override
@@ -68,7 +71,7 @@ public class REMMqttCallbackHandler implements Runnable {
 			options.setConnectionTimeout(100);
 
 			// Setup a callback
-			client.setCallback(new REMMqttCallback(client, taskExecutor));
+			client.setCallback(new REMMqttCallback(client, taskExecutor, firebaseService));
 
 			// Connect to the broker
 			client.connect(options);

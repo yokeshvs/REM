@@ -11,11 +11,15 @@ import org.springframework.core.task.TaskTimeoutException;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.core.constants.REMConstants;
+import com.core.services.FirebaseService;
+import com.core.services.impl.FirebaseServiceImpl;
 
 public class REMMqttCallback implements MqttCallback {
 	private static final Logger LOGGER = LogManager.getLogger("REMMqttCallback");
 	private MqttClient client;
 	private ThreadPoolTaskExecutor taskExecutor;
+
+	private FirebaseService firebaseService;
 
 	public MqttClient getClient() {
 		return client;
@@ -33,14 +37,22 @@ public class REMMqttCallback implements MqttCallback {
 		this.taskExecutor = taskExecutor;
 	}
 
+	public FirebaseService getFirebaseService() {
+		return firebaseService;
+	}
+
+	public void setFirebaseService(FirebaseService firebaseService) {
+		this.firebaseService = firebaseService;
+	}
+
 	public REMMqttCallback() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public REMMqttCallback(MqttClient mqttClient, ThreadPoolTaskExecutor executor) {
+	public REMMqttCallback(MqttClient mqttClient, ThreadPoolTaskExecutor executor, FirebaseService firebaseService) {
 		this.client = mqttClient;
 		this.taskExecutor = executor;
-
+		this.firebaseService = firebaseService;
 	}
 
 	@Override
@@ -54,11 +66,14 @@ public class REMMqttCallback implements MqttCallback {
 			taskExecutor.execute(new Runnable() {
 				public void run() {
 					if (topic.equalsIgnoreCase(REMConstants.DEVICE_TOPIC)) {
-						LOGGER.debug("\n**************\nREMMqttCallback::messageArrived::message: {}\n**************",
-								message.toString());
+//						LOGGER.debug("\n**************\nREMMqttCallback::messageArrived::message: {}\n**************",
+//								message.toString());
+
 					} else if (topic.equalsIgnoreCase(REMConstants.DEVICE_TOPIC_1)) {
-						LOGGER.debug("\n**************\nREMMqttCallback::messageArrived::message: {}\n**************",
-								message.toString());
+//						LOGGER.debug("\n**************\nREMMqttCallback::messageArrived::message: {}\n**************",
+//								message.toString());
+						firebaseService.updateDeviceInfo(message.toString());
+						LOGGER.debug("\n**************\nREMMqttCallback::messageupdated::successful\n**************");
 					}
 				}
 			});
