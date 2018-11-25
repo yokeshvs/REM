@@ -2,7 +2,6 @@ package com.core.util;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.Map;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -17,7 +16,6 @@ import org.apache.logging.log4j.Logger;
 import com.core.constants.REMConstants;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonElement;
 
 public class WebServiceUtil {
 	private static final Logger LOGGER = LogManager.getLogger("WebServiceUtil");
@@ -69,37 +67,24 @@ public class WebServiceUtil {
 		return oauth2;
 	}
 
-	public static String callGETFirebaseService(String apiURL) {
-		Client client = ClientBuilder.newClient();
-		double distance = Integer.MAX_VALUE;
-		String edgeValue = "";
-		LOGGER.debug("WebServiceUtil:callGETFirebaseService::apiURL: " + apiURL);
-		WebTarget resource = client.target(apiURL + "?key=AIzaSyAHyoI7iGdo8vr_UhfUKCylkknFqAFfW_w");
-		Response response = resource.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).get();
+	public static String getDeviceInfo() {
+		String outputData = REMConstants.EMPTY_STRING;
+		Response response = getFirebaseData(REMConstants.FB_DEVICES);
 		if (response != null) {
-			String outputData = response.readEntity(String.class);
-			JsonObject jsonObj = new JsonParser().parse(outputData).getAsJsonObject();
-			LOGGER.debug("WebServiceUtil:callGETFirebaseService::jsonObj: " + jsonObj);
-			for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-				LOGGER.debug("WebServiceUtil:callGETFirebaseService::entryKey: " + entry.getKey());
-				LOGGER.debug("WebServiceUtil:callGETFirebaseService::entryValue: " + entry.getValue());
-				JsonObject edgeObj = entry.getValue().getAsJsonObject();
-				double currentDistance = edgeObj.get("distance").getAsDouble();
-				LOGGER.debug("WebServiceUtil:callGETFirebaseService::currentDistance: " + currentDistance);
-				if (currentDistance < distance) {
-					distance = currentDistance;
-					edgeValue = entry.getKey().toString();
-				}
-				LOGGER.debug("WebServiceUtil:callGETFirebaseService::distance: " + distance);
-			}
-			LOGGER.debug("WebServiceUtil:callGETFirebaseService::edgeValue: " + edgeValue);
+			outputData = response.readEntity(String.class);
 		}
-		return edgeValue;
+		return outputData;
+	}
+	
+	public static Response getFirebaseData(String targetURL) {
+		Client client = ClientBuilder.newClient();
+		WebTarget resource = client.target(targetURL + REMConstants.FB_KEY);
+		Response response = resource.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).get();
+		return response;
 	}
 
 	public static Response updateDeviceLocation(String apiURL, String json) {
 		Client client = ClientBuilder.newClient();
-		LOGGER.debug("WebServiceUtil:updateDeviceLocation::apiURL: " + apiURL);
 		LOGGER.debug("WebServiceUtil:updateDeviceLocation::json: " + json);
 		WebTarget resource = client.target(apiURL);
 		Response response = resource.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)

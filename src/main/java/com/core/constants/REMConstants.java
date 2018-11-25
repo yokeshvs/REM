@@ -23,6 +23,7 @@ public interface REMConstants {
 
 	// Firebase Constants
 	public final static String FB_KEY = "?key=AIzaSyAHyoI7iGdo8vr_UhfUKCylkknFqAFfW_w";
+	public final static String FB_DEVICES = "https://uihealth-rem.firebaseio.com/devices.json";
 	public final static String FB_DEVICELOCAITON_FUNC = "https://us-central1-uihealth-rem.cloudfunctions.net/deviceLocation"
 			+ FB_KEY;
 

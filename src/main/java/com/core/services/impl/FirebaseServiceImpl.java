@@ -5,12 +5,14 @@ import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import com.core.constants.REMConstants;
 import com.core.domain.Device;
 import com.core.services.FirebaseService;
 import com.core.util.WebServiceUtil;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -24,9 +26,38 @@ public class FirebaseServiceImpl implements FirebaseService {
 		return null;
 	}
 
-	public String getClosestEdge(String apiURL) {
+	public Response getClosestEdge() {
 		LOGGER.debug("inside getClosestEdge");
-		return WebServiceUtil.callGETFirebaseService(apiURL);
+		String deviceInfo = WebServiceUtil.getDeviceInfo();
+		LOGGER.debug("FirebaseServiceImpl:getClosestEdge::deviceInfo: " + deviceInfo);
+		JsonArray devices = new JsonParser().parse(deviceInfo).getAsJsonArray();
+		JSONObject ledgerDevices = new JSONObject();
+		for (int i = 0; i < devices.size(); i++) {
+			if (devices.get(i) != null && !devices.get(i).toString().equalsIgnoreCase("null")) {
+				JsonObject devicesData = devices.get(i).getAsJsonObject();
+				JSONObject currentDevice = new JSONObject(devicesData.toString());
+				String[] properties = JSONObject.getNames(currentDevice);
+				Integer signalStrength = Integer.MIN_VALUE;
+				Integer currentSignalStrength = 0;
+				String deviceID = REMConstants.EMPTY_STRING;
+				String edgeID = REMConstants.EMPTY_STRING;
+				for (int j = 0; j < properties.length; j++) {
+					JSONObject currentEdge = (JSONObject)currentDevice.get(properties[j]);
+					currentSignalStrength = (Integer) currentEdge.get("distance");
+					if(currentSignalStrength > signalStrength) {
+						signalStrength = currentSignalStrength;
+						edgeID = properties[j];
+						deviceID = currentEdge.get("deviceId").toString();
+					}
+				}
+				JSONObject ledgerEntry = new JSONObject();
+				ledgerEntry.put("edgeId", edgeID);
+				ledgerEntry.put("signalStrength", signalStrength);
+				ledgerDevices.put(deviceID, ledgerEntry);
+			}
+		}
+		LOGGER.debug("FirebaseServiceImpl:getClosestEdge::ledgerDevices: " + ledgerDevices.toString());
+		return Response.ok().entity(ledgerDevices.toString()).build();
 	}
 
 	public Response updateDeviceInfo(String message) {
