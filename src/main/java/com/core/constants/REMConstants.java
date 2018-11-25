@@ -4,6 +4,7 @@ public interface REMConstants {
 
 	public final static int QOS = 2;
 	public final static String EMPTY_STRING = "";
+	public final static String NULL = "null";
 	public final static String DEVICE_TOPIC = "911d1824-d6ae-432b-b041-f1b473121a2e/REM/deviceInfo";
 	public final static String DEVICE_TOPIC_1 = "EE712681-0741-483F-A804-B5B102166045";
 	public final static String CLIENT_ID = "sb-932233bf-39fd-467e-bb43-b000b2802e49!b6846|na-420adfc9-f96e-4090-a650-0386988b67e0!b1836";

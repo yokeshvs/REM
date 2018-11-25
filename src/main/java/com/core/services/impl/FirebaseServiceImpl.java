@@ -1,5 +1,10 @@
 package com.core.services.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
@@ -20,10 +25,15 @@ import com.google.gson.JsonParser;
 @Path("/firebase")
 public class FirebaseServiceImpl implements FirebaseService {
 	private static final Logger LOGGER = LogManager.getLogger("FirebaseServiceImpl");
+	private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public Response registerDevice(Device device) {
 		LOGGER.debug("inside registerDevice");
 		return null;
+	}
+
+	private static String getCurrentTimeStamp() {
+		return format.format(new Date());
 	}
 
 	public Response getClosestEdge() {
@@ -32,6 +42,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 		LOGGER.debug("FirebaseServiceImpl:getClosestEdge::deviceInfo: " + deviceInfo);
 		JsonArray devices = new JsonParser().parse(deviceInfo).getAsJsonArray();
 		JSONObject ledgerDevices = new JSONObject();
+
 		for (int i = 0; i < devices.size(); i++) {
 			if (devices.get(i) != null && !devices.get(i).toString().equalsIgnoreCase("null")) {
 				JsonObject devicesData = devices.get(i).getAsJsonObject();
@@ -41,19 +52,36 @@ public class FirebaseServiceImpl implements FirebaseService {
 				Integer currentSignalStrength = 0;
 				String deviceID = REMConstants.EMPTY_STRING;
 				String edgeID = REMConstants.EMPTY_STRING;
+				long timeLimit = Long.MAX_VALUE;
+				long currentTime = Calendar.getInstance(TimeZone.getTimeZone("PST")).getTimeInMillis();
+				boolean status = false;
 				for (int j = 0; j < properties.length; j++) {
-					JSONObject currentEdge = (JSONObject)currentDevice.get(properties[j]);
+					JSONObject currentEdge = (JSONObject) currentDevice.get(properties[j]);
 					currentSignalStrength = (Integer) currentEdge.get("distance");
-					if(currentSignalStrength > signalStrength) {
+					currentTime = Calendar.getInstance(TimeZone.getTimeZone("PST")).getTimeInMillis();
+					timeLimit = currentTime - (long) currentEdge.get("time");
+					LOGGER.debug("FirebaseServiceImpl:getClosestEdge::currentTime: " + currentTime);
+					LOGGER.debug("FirebaseServiceImpl:getClosestEdge::timeLimit: " + timeLimit);
+					if (currentSignalStrength > signalStrength) {
 						signalStrength = currentSignalStrength;
 						edgeID = properties[j];
 						deviceID = currentEdge.get("deviceId").toString();
 					}
+					if (timeLimit < 90000) {
+						status = true;
+					} else {
+						status = false;
+					}
 				}
-				JSONObject ledgerEntry = new JSONObject();
-				ledgerEntry.put("edgeId", edgeID);
-				ledgerEntry.put("signalStrength", signalStrength);
-				ledgerDevices.put(deviceID, ledgerEntry);
+				if (deviceID != null && !deviceID.equalsIgnoreCase(REMConstants.EMPTY_STRING)
+						&& !deviceID.equalsIgnoreCase(REMConstants.NULL)) {
+					JSONObject ledgerEntry = new JSONObject();
+					ledgerEntry.put("edgeId", edgeID);
+					ledgerEntry.put("signalStrength", signalStrength);
+					ledgerEntry.put("status", status);
+					ledgerEntry.put("time", getCurrentTimeStamp());
+					ledgerDevices.put(deviceID, ledgerEntry);
+				}
 			}
 		}
 		LOGGER.debug("FirebaseServiceImpl:getClosestEdge::ledgerDevices: " + ledgerDevices.toString());
