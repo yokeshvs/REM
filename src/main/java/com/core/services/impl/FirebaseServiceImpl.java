@@ -3,9 +3,12 @@ package com.core.services.impl;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import com.core.constants.REMConstants;
 import com.core.domain.Device;
+import com.core.domain.LedgerDevice;
 import com.core.services.FirebaseService;
 import com.core.util.WebServiceUtil;
 import com.google.gson.JsonArray;
@@ -36,12 +40,12 @@ public class FirebaseServiceImpl implements FirebaseService {
 		return format.format(new Date());
 	}
 
-	public Response getClosestEdge() {
+	public Map<Integer, LedgerDevice> getClosestEdge() {
 		LOGGER.debug("inside getClosestEdge");
 		String deviceInfo = WebServiceUtil.getDeviceInfo();
 		LOGGER.debug("FirebaseServiceImpl:getClosestEdge::deviceInfo: " + deviceInfo);
 		JsonArray devices = new JsonParser().parse(deviceInfo).getAsJsonArray();
-		JSONObject ledgerDevices = new JSONObject();
+		Map<Integer, LedgerDevice> ledgerDevices = new HashMap<>(); 
 
 		for (int i = 0; i < devices.size(); i++) {
 			if (devices.get(i) != null && !devices.get(i).toString().equalsIgnoreCase("null")) {
@@ -50,7 +54,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 				String[] properties = JSONObject.getNames(currentDevice);
 				Integer signalStrength = Integer.MIN_VALUE;
 				Integer currentSignalStrength = 0;
-				String deviceID = REMConstants.EMPTY_STRING;
+				Integer deviceID = 0;
 				String edgeID = REMConstants.EMPTY_STRING;
 				long timeLimit = Long.MAX_VALUE;
 				long currentTime = Calendar.getInstance(TimeZone.getTimeZone("PST")).getTimeInMillis();
@@ -65,7 +69,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 					if (currentSignalStrength > signalStrength) {
 						signalStrength = currentSignalStrength;
 						edgeID = properties[j];
-						deviceID = currentEdge.get("deviceId").toString();
+						deviceID = (Integer) currentEdge.get("deviceId");
 					}
 					if (timeLimit < 90000) {
 						status = true;
@@ -73,19 +77,18 @@ public class FirebaseServiceImpl implements FirebaseService {
 						status = false;
 					}
 				}
-				if (deviceID != null && !deviceID.equalsIgnoreCase(REMConstants.EMPTY_STRING)
-						&& !deviceID.equalsIgnoreCase(REMConstants.NULL)) {
-					JSONObject ledgerEntry = new JSONObject();
-					ledgerEntry.put("edgeId", edgeID);
-					ledgerEntry.put("signalStrength", signalStrength);
-					ledgerEntry.put("status", status);
-					ledgerEntry.put("time", getCurrentTimeStamp());
+				if (deviceID != null && deviceID > 0) {
+					LedgerDevice ledgerEntry = new LedgerDevice();
+					ledgerEntry.setEdgeID(edgeID);
+					ledgerEntry.setSignalStrength(signalStrength);
+					ledgerEntry.setStatus(status);
+					ledgerEntry.setTime(getCurrentTimeStamp());
 					ledgerDevices.put(deviceID, ledgerEntry);
 				}
 			}
 		}
 		LOGGER.debug("FirebaseServiceImpl:getClosestEdge::ledgerDevices: " + ledgerDevices.toString());
-		return Response.ok().entity(ledgerDevices.toString()).build();
+		return ledgerDevices;
 	}
 
 	public Response updateDeviceInfo(String message) {

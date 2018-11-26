@@ -13,7 +13,7 @@ import com.core.services.HyperLedgerService;
 import com.core.util.WebServiceUtil;
 import com.google.gson.Gson;
 
-@Component
+@Component("HyperLedgerServiceImpl")
 @Path("/hyperledger")
 public class HyperLedgerServiceImpl implements HyperLedgerService {
 

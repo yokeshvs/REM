@@ -14,7 +14,7 @@ public class DeviceDetails {
 	private String edgeId;
 
 	@SerializedName("Rssi")
-	private String status;
+	private boolean status;
 
 	public String getTime() {
 		return time;
@@ -32,11 +32,11 @@ public class DeviceDetails {
 		this.edgeId = edgeId;
 	}
 
-	public String getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 
