@@ -12,16 +12,22 @@ import javax.ws.rs.core.Response;
 import com.core.domain.Device;
 
 public interface HyperLedgerService {
-	
+
 	@Path("/device")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getDeviceBlock(@QueryParam("device") String deviceID);
-	
+	public Response getDeviceBlock(@QueryParam("deviceId") String deviceID);
+
+	@Path("/deviceHistory")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDeviceHistory(@QueryParam("deviceId") String deviceID);
+
 	@Path("/device")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addDeviceBlock(Device device);
+	public Response createUpdateDevice(Device device);
 }

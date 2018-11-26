@@ -73,7 +73,7 @@ public class REMMqttCallback implements MqttCallback {
 //						LOGGER.debug("\n**************\nREMMqttCallback::messageArrived::message: {}\n**************",
 //								message.toString());
 //						firebaseService.updateDeviceInfo(message.toString());
-						LOGGER.debug("\n**************\nREMMqttCallback::messageupdated::successful\n**************");
+//						LOGGER.debug("\n**************\nREMMqttCallback::messageupdated::successful\n**************");
 					}
 				}
 			});

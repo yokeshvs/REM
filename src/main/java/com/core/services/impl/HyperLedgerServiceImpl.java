@@ -19,24 +19,33 @@ public class HyperLedgerServiceImpl implements HyperLedgerService {
 
 	private static final Logger LOGGER = LogManager.getLogger("HyperLedgerServiceImpl");
 
-	public Response addDeviceBlock(Device device) {
+	public Response createUpdateDevice(Device device) {
 		LOGGER.debug("inside addBlock");
-		String apiURL = REMConstants.HYPERLEDGER_API_HOST_1 + REMConstants.CHAIN_CODE1_API_1 + "/latest/"
-				+ device.getDeviceID();
+		String apiURL = REMConstants.HYPERLEDGER_API_HOST + REMConstants.CHAIN_CODE1_API + "/" + device.getDeviceID();
 		String json = new Gson().toJson(device.getDeviceDetails());
 		LOGGER.debug("HyperLedgerServiceImpl::addDeviceBlock::json: " + json);
 		Response response = WebServiceUtil.callPOSTService(apiURL, json);
-		if (response != null && response.getStatusInfo().getStatusCode() == 200) {
+		if (response != null && response.getStatusInfo().getStatusCode() == 201) {
 			return Response.ok().entity("Success").build();
 		} else {
 			return Response.ok().entity("Failed").build();
 		}
-
 	}
 
 	public Response getDeviceBlock(String deviceID) {
-		LOGGER.debug("inside getBlock");
-		String apiURL = REMConstants.HYPERLEDGER_API_HOST + REMConstants.CHAIN_CODE1_API + "/latest/" + deviceID;
+		LOGGER.debug("inside getDeviceBlock");
+		String apiURL = REMConstants.HYPERLEDGER_API_HOST + REMConstants.CHAIN_CODE1_API + "/" + deviceID + "/read";
+		Response response = WebServiceUtil.callGETService(apiURL, "");
+		if (response != null) {
+			String outputData = response.readEntity(String.class);
+			return Response.ok().entity(outputData).build();
+		}
+		return Response.ok().entity("Success").build();
+	}
+
+	public Response getDeviceHistory(String deviceID) {
+		LOGGER.debug("inside getDeviceHistory");
+		String apiURL = REMConstants.HYPERLEDGER_API_HOST + REMConstants.CHAIN_CODE1_API + "/" + deviceID + "/history";
 		Response response = WebServiceUtil.callGETService(apiURL, "");
 		if (response != null) {
 			String outputData = response.readEntity(String.class);
