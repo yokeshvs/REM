@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.LogManager;
