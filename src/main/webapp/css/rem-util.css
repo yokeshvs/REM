@@ -1,0 +1,25 @@
+.device-selector-element {
+	display: inline-block;
+}
+
+.device-selector-container {
+	margin-top: 100px;
+	text-align: center;
+}
+
+.menu-label {
+	font-size: 25px;
+}
+
+.eq-detail-container {
+	margin-top: 60px;
+	text-align: center;
+}
+
+.hide {
+	display: none;
+}
+
+.eq-detail-label, .eq-detail-content {
+	display: inline-block;
+}

@@ -34,6 +34,9 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
 					href="index.jsp">Home</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="equipmentDetails.jsp">Track Equipment <span
+						class="sr-only">(current)</span></a></li>
 			</ul>
 		</div>
 	</nav>
@@ -49,25 +52,6 @@
 					<option value="2">Device 2</option>
 					<option value="3">Device 3</option>
 				</select>
-			</div>
-		</div>
-
-		<div class="hide eq-detail-container" id="eq-detail-container">
-			<div>
-				<div class="eq-detail-label">Device ID:</div>
-				<div class="eq-detail-content" id="eq-detail-deviceID"></div>
-			</div>
-			<div>
-				<div class="eq-detail-label">Zone:</div>
-				<div class="eq-detail-content" id="eq-detail-edgeID"></div>
-			</div>
-			<div>
-				<div class="eq-detail-label">Status:</div>
-				<div class="eq-detail-content" id="eq-detail-status"></div>
-			</div>
-			<div>
-				<div class="eq-detail-label">Last Seen:</div>
-				<div class="eq-detail-content" id="eq-detail-timeStamp"></div>
 			</div>
 		</div>
 	</div>
