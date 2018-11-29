@@ -59,10 +59,10 @@ public class WebServiceUtil {
 	}
 
 	private static String getBearerToken() {
-		String credentials = REMConstants.CLIENT_ID + ":" + REMConstants.CLIENT_SECRET;
+		String credentials = REMConstants.CLIENT_ID_V2 + ":" + REMConstants.CLIENT_SECRET_V2;
 		String oauthHeader = "Basic "
 				+ Base64.getEncoder().encodeToString(credentials.getBytes(StandardCharsets.UTF_8));
-		String apiURL = REMConstants.HYPERLEDGER_HOST + REMConstants.OAUTH2_URL;
+		String apiURL = REMConstants.HYPERLEDGER_HOST_V2 + REMConstants.OAUTH2_URL_V2;
 		String oauth2 = getOauth2(apiURL, oauthHeader);
 		return oauth2;
 	}

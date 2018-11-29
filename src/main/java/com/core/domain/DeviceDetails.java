@@ -7,13 +7,13 @@ import com.google.gson.annotations.SerializedName;
 @XmlRootElement
 public class DeviceDetails {
 
-	@SerializedName("DeviceID")
+	@SerializedName("Timestamp")
 	private String time;
 
 	@SerializedName("EdgeID")
 	private String edgeId;
 
-	@SerializedName("Rssi")
+	@SerializedName("DStatus")
 	private boolean status;
 
 	public String getTime() {

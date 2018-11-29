@@ -10,8 +10,8 @@ $(function() {
                 console.log('success: ' + data);
                 $("#eq-detail-deviceID").text(selectedDevice);
                 $("#eq-detail-edgeID").text(data.EdgeID);
-                $("#eq-detail-timeStamp").text(data.DeviceID);
-                $("#eq-detail-status").text(data.Rssi);
+                $("#eq-detail-timeStamp").text(data.Timestamp);
+                $("#eq-detail-status").text(data.DStatus);
                 $("#eq-detail-container").removeClass('hide');
             }
         });
