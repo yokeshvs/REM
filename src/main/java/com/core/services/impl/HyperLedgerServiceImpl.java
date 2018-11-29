@@ -42,6 +42,17 @@ public class HyperLedgerServiceImpl implements HyperLedgerService {
 		}
 		return Response.ok().entity("Success").build();
 	}
+	
+	public Response getDevices() {
+		LOGGER.debug("inside getDevices");
+		String apiURL = REMConstants.HYPERLEDGER_API_HOST_V2 + REMConstants.CHAIN_CODE_API_V2 + "/1/list";
+		Response response = WebServiceUtil.callGETService(apiURL, "");
+		if (response != null) {
+			String outputData = response.readEntity(String.class);
+			return Response.ok().entity(outputData).build();
+		}
+		return Response.ok().entity("Success").build();
+	}
 
 	public Response getDeviceHistory(String deviceID) {
 		LOGGER.debug("inside getDeviceHistory");

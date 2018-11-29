@@ -30,4 +30,10 @@ public interface HyperLedgerService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createUpdateDevice(Device device);
+	
+	@Path("/devices")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDevices();
 }
