@@ -34,9 +34,6 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
 					href="index.jsp">Home</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="equipmentDetails.jsp">Track Equipment <span
-						class="sr-only">(current)</span></a></li>
 			</ul>
 		</div>
 	</nav>
@@ -44,17 +41,69 @@
 	<div class="container">
 		<!-- Content here -->
 		<div class="device-selector-container">
-			<div class="device-selector-element menu-label">Select a
-				device:</div>
+			<div class="device-selector-element menu-label">Select an
+				equipment:</div>
 			<div class="device-selector-element">
-				<select id="deviceSelector">
-					<option value="1">Device 1</option>
-					<option value="2">Device 2</option>
-					<option value="3">Device 3</option>
+				<select id="deviceSelector" class="form-control">
+					<option value="0">Please select a device</option>
 				</select>
 			</div>
 		</div>
+		<div id="device-details-container" class="hide">
+			<div class="device-container-title container-title">
+				Equipment Status and History <i class="fas fa-sync-alt fa-1x"
+					id="sync-eq-details"></i>
+			</div>
+			<hr />
+			<div class="eq-detail-container row" id="eq-detail-container">
+				<div class="col">
+					<div class="eq-detail-label">Equipment ID</div>
+					<hr width="50%">
+				</div>
+				<div class="col">
+					<div class="eq-detail-label">Zone</div>
+					<hr width="50%">
+				</div>
+				<div class="col">
+					<div class="eq-detail-label">Status</div>
+					<hr width="50%">
+				</div>
+				<div class="col">
+					<div class="eq-detail-label">Last Seen</div>
+					<hr width="50%">
+				</div>
+			</div>
+
+			<div class="eq-detail-container row" id="eq-detail-dyn-container">
+				<div class="col">
+					<div class="eq-detail-content" id="eq-detail-deviceID"></div>
+				</div>
+				<div class="col">
+					<div class="eq-detail-content" id="eq-detail-edgeID"></div>
+				</div>
+				<div class="col">
+					<div class="eq-detail-content" id="eq-detail-status"></div>
+				</div>
+				<div class="col">
+					<div class="eq-detail-content" id="eq-detail-timeStamp"></div>
+				</div>
+			</div>
+
+			<table class="table eq-details-table" id="eq-details-table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">Zone</th>
+						<th scope="col">Status</th>
+						<th scope="col">Time</th>
+					</tr>
+				</thead>
+				<tbody id="eq-details-table-data">
+				</tbody>
+			</table>
+		</div>
 	</div>
+	<!-- 	<div id="chartContainer" style="height: 370px; width: 100%;"></div> -->
+	<!-- 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -70,6 +119,10 @@
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" src="js/rem-util.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/rem-util.css" />
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+		integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+		crossorigin="anonymous">
 </body>
 
 </html>

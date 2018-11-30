@@ -45,9 +45,7 @@
 				device:</div>
 			<div class="device-selector-element">
 				<select id="deviceSelector">
-					<option value="1">Device 1</option>
-					<option value="2">Device 2</option>
-					<option value="3">Device 3</option>
+					<option value="1">Please select a device</option>
 				</select>
 			</div>
 		</div>

@@ -3,7 +3,7 @@
 }
 
 .device-selector-container {
-	margin-top: 100px;
+	margin-top: 50px;
 	text-align: center;
 }
 
@@ -12,7 +12,6 @@
 }
 
 .eq-detail-container {
-	margin-top: 60px;
 	text-align: center;
 }
 
@@ -22,4 +21,33 @@
 
 .eq-detail-label, .eq-detail-content {
 	display: inline-block;
+}
+
+.eq-detail-label {
+	font-size: 20px;
+}
+
+.device-container-title {
+	margin-top: 40px;
+	text-align: center;
+}
+
+.container-title {
+	font-size: 32px;
+	font-weight: 300;
+}
+
+.container {
+	font-family: segoe UI, sans-serif;
+	font-weight: 300;
+}
+
+.eq-details-table {
+	margin-top: 60px;
+	width: 70%;
+	margin-left: 15%;
+	text-align: center;
+	height: 400px;
+	overflow-y: scroll;
+	table-layout: fixed;
 }
