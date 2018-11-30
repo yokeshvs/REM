@@ -69,10 +69,10 @@ public class REMMqttCallback implements MqttCallback {
 //								message.toString());
 
 					} else if (topic.equalsIgnoreCase(REMConstants.DEVICE_TOPIC_1)) {
-						LOGGER.debug("\n**************\nREMMqttCallback::messageArrived::message: {}\n**************",
-								message.toString());
+//						LOGGER.DEBUG("\N**************\NREMMQTTCALLBACK::MESSAGEARRIVED::MESSAGE: {}\N**************",
+//								message.toString());
 						firebaseService.updateDeviceInfo(message.toString());
-						LOGGER.debug("\n**************\nREMMqttCallback::messageupdated::successful\n**************");
+//						LOGGER.debug("\n**************\nREMMqttCallback::messageupdated::successful\n**************");
 					}
 				}
 			});
