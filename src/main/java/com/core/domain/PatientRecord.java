@@ -1,23 +1,27 @@
 package com.core.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.google.gson.annotations.SerializedName;
+
+@XmlRootElement
 public class PatientRecord {
 
+	@SerializedName("Patient_Name")
 	private String patientName;
-	private Integer patientId;
-	private Integer initialUlcerStage;
-	private Integer finalUlcerStage;
-	private Integer mrnNo;
-	private Integer admitDate;
-	private Integer dischargeDate;
-	private boolean deviceUsed;
-
-	public boolean isDeviceUsed() {
-		return deviceUsed;
-	}
-
-	public void setDeviceUsed(boolean deviceUsed) {
-		this.deviceUsed = deviceUsed;
-	}
+	private String patientId;
+	@SerializedName("Initial_Ulcerstage")
+	private String initialUlcerStage;
+	@SerializedName("Final_Ulcerstage")
+	private String finalUlcerStage;
+	@SerializedName("MRN_No")
+	private String mrnNo;
+	@SerializedName("Admit_Date")
+	private String admitDate;
+	@SerializedName("Discharge_Date")
+	private String dischargeDate;
+	@SerializedName("Equipment_Used")
+	private String deviceUsed;
 
 	public String getPatientName() {
 		return patientName;
@@ -27,52 +31,60 @@ public class PatientRecord {
 		this.patientName = patientName;
 	}
 
-	public Integer getPatientId() {
+	public String getPatientId() {
 		return patientId;
 	}
 
-	public void setPatientId(Integer patientId) {
+	public void setPatientId(String patientId) {
 		this.patientId = patientId;
 	}
 
-	public Integer getInitialUlcerStage() {
+	public String getInitialUlcerStage() {
 		return initialUlcerStage;
 	}
 
-	public void setInitialUlcerStage(Integer initialUlcerStage) {
+	public void setInitialUlcerStage(String initialUlcerStage) {
 		this.initialUlcerStage = initialUlcerStage;
 	}
 
-	public Integer getFinalUlcerStage() {
+	public String getFinalUlcerStage() {
 		return finalUlcerStage;
 	}
 
-	public void setFinalUlcerStage(Integer finalUlcerStage) {
+	public void setFinalUlcerStage(String finalUlcerStage) {
 		this.finalUlcerStage = finalUlcerStage;
 	}
 
-	public Integer getMrnNo() {
+	public String getMrnNo() {
 		return mrnNo;
 	}
 
-	public void setMrnNo(Integer mrnNo) {
+	public void setMrnNo(String mrnNo) {
 		this.mrnNo = mrnNo;
 	}
 
-	public Integer getAdmitDate() {
+	public String getAdmitDate() {
 		return admitDate;
 	}
 
-	public void setAdmitDate(Integer admitDate) {
+	public void setAdmitDate(String admitDate) {
 		this.admitDate = admitDate;
 	}
 
-	public Integer getDischargeDate() {
+	public String getDischargeDate() {
 		return dischargeDate;
 	}
 
-	public void setDischargeDate(Integer dischargeDate) {
+	public void setDischargeDate(String dischargeDate) {
 		this.dischargeDate = dischargeDate;
+	}
+
+	public String getDeviceUsed() {
+		return deviceUsed;
+	}
+
+	public void setDeviceUsed(String deviceUsed) {
+		this.deviceUsed = deviceUsed;
 	}
 
 	@Override

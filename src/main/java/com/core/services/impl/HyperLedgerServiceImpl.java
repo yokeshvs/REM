@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.core.constants.REMConstants;
 import com.core.domain.Device;
-import com.core.domain.PatientRecord;
+import com.core.domain.Patient;
 import com.core.services.HyperLedgerService;
 import com.core.util.WebServiceUtil;
 import com.google.gson.Gson;
@@ -26,7 +26,7 @@ public class HyperLedgerServiceImpl implements HyperLedgerService {
 				+ device.getDeviceID();
 		String json = new Gson().toJson(device.getDeviceDetails());
 		LOGGER.debug("HyperLedgerServiceImpl::addDeviceBlock::json: " + json);
-		Response response = WebServiceUtil.callPOSTService(apiURL, json);
+		Response response = WebServiceUtil.callPOSTService(apiURL, json, false);
 		if (response != null && response.getStatusInfo().getStatusCode() == 201) {
 			return Response.ok().entity("Success").build();
 		} else {
@@ -37,7 +37,7 @@ public class HyperLedgerServiceImpl implements HyperLedgerService {
 	public Response getDeviceBlock(String deviceID) {
 		LOGGER.debug("inside getDeviceBlock");
 		String apiURL = REMConstants.HYPERLEDGER_API_HOST_V2 + REMConstants.CHAIN_CODE_API_V2 + "/" + deviceID;
-		Response response = WebServiceUtil.callGETService(apiURL, "");
+		Response response = WebServiceUtil.callGETService(apiURL, "", false);
 		if (response != null) {
 			String outputData = response.readEntity(String.class);
 			return Response.ok().entity(outputData).build();
@@ -48,7 +48,7 @@ public class HyperLedgerServiceImpl implements HyperLedgerService {
 	public Response getDevices() {
 		LOGGER.debug("inside getDevices");
 		String apiURL = REMConstants.HYPERLEDGER_API_HOST_V2 + REMConstants.CHAIN_CODE_API_V2 + "/1/list";
-		Response response = WebServiceUtil.callGETService(apiURL, "");
+		Response response = WebServiceUtil.callGETService(apiURL, "", false);
 		if (response != null) {
 			String outputData = response.readEntity(String.class);
 			return Response.ok().entity(outputData).build();
@@ -60,7 +60,7 @@ public class HyperLedgerServiceImpl implements HyperLedgerService {
 		LOGGER.debug("inside getDeviceHistory");
 		String apiURL = REMConstants.HYPERLEDGER_API_HOST_V2 + REMConstants.CHAIN_CODE_API_V2 + "/" + deviceID
 				+ "/history";
-		Response response = WebServiceUtil.callGETService(apiURL, "");
+		Response response = WebServiceUtil.callGETService(apiURL, "", false);
 		if (response != null) {
 			String outputData = response.readEntity(String.class);
 			return Response.ok().entity(outputData).build();
@@ -68,13 +68,17 @@ public class HyperLedgerServiceImpl implements HyperLedgerService {
 		return Response.ok().entity("Success").build();
 	}
 
-	public Response createUpdatePatientRecord(PatientRecord patientRecord) {
-		LOGGER.debug("HyperLedgerServiceImpl::createUpdatePatientRecord::patientRecord: " + patientRecord.toString());
-		Response response = null;
+	public Response createUpdatePatientRecord(Patient patient) {
+		LOGGER.debug("HyperLedgerServiceImpl::createUpdatePatientRecord::patientRecord: " + patient.toString());
+		String apiURL = REMConstants.HYPERLEDGER_API_HOST_LEDGER + REMConstants.CHAIN_CODE_API_LEDGER + "/"
+				+ patient.getPatientId();
+		String json = new Gson().toJson(patient.getPatientRecord());
+		LOGGER.debug("HyperLedgerServiceImpl::createUpdatePatientRecord::json: " + json);
+		Response response = WebServiceUtil.callPOSTService(apiURL, json, true);
 		if (response != null && response.getStatusInfo().getStatusCode() == 201) {
 			return Response.ok().entity("Success").build();
 		} else {
-			return Response.ok().entity(patientRecord.toString()).build();
+			return Response.ok().entity("Failed").build();
 		}
 	}
 }

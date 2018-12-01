@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.core.domain.Device;
-import com.core.domain.PatientRecord;
+import com.core.domain.Patient;
 
 public interface HyperLedgerService {
 
@@ -31,17 +31,16 @@ public interface HyperLedgerService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createUpdateDevice(Device device);
-	
+
 	@Path("/devices")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getDevices();
-	
-	
+
 	@Path("/patientLedger")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createUpdatePatientRecord(PatientRecord patientRecord);
+	public Response createUpdatePatientRecord(Patient patient);
 }
