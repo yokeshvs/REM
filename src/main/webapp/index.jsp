@@ -15,57 +15,40 @@
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
 
-<title>Equipment Details</title>
+<title>UI Health - Monitor</title>
 </head>
 
 <body>
-	<!-- <h1>Hello, world!</h1> -->
-
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="#">Remote Equipment Monitor</a>
+		<a class="navbar-brand" href="#">UI Health</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
-					href="index.jsp">Home</a></li>
+				<li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="equipmentDetails.jsp">Equipment Tracker</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="patientLedger.jsp">Patient Ledger</a></li>
 			</ul>
 		</div>
 	</nav>
 
 	<div class="container">
-		<!-- Content here -->
-		<div class="device-selector-container">
-			<div class="device-selector-element menu-label">Select a
-				device:</div>
-			<div class="device-selector-element">
-				<select id="deviceSelector">
-					<option value="1">Please select a device</option>
-				</select>
+		<div class="home-option-container">
+			<div class="home-option-details">
+				<a href="equipmentDetails.jsp"><i
+					class="fas fa-map-marked-alt fa-9x"></i></a>
+				<div class="home-option-text">Track your equipment</div>
 			</div>
-		</div>
-
-		<div class="hide eq-detail-container" id="eq-detail-container">
-			<div>
-				<div class="eq-detail-label">Device ID:</div>
-				<div class="eq-detail-content" id="eq-detail-deviceID"></div>
-			</div>
-			<div>
-				<div class="eq-detail-label">Zone:</div>
-				<div class="eq-detail-content" id="eq-detail-edgeID"></div>
-			</div>
-			<div>
-				<div class="eq-detail-label">Status:</div>
-				<div class="eq-detail-content" id="eq-detail-status"></div>
-			</div>
-			<div>
-				<div class="eq-detail-label">Last Seen:</div>
-				<div class="eq-detail-content" id="eq-detail-timeStamp"></div>
+			<div class="home-option-details">
+				<a href="equipmentDetails.jsp"><i
+					class="fas fa-notes-medical fa-9x"></i></a>
+				<div class="home-option-text">Enter Patient details</div>
 			</div>
 		</div>
 	</div>
@@ -84,6 +67,10 @@
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" src="js/rem-util.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/rem-util.css" />
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+		integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+		crossorigin="anonymous">
 </body>
 
 </html>

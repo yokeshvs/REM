@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Enter Ulcer Details</title>
+<title>Patient Ledger</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -26,43 +26,26 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/ledger-util.js"></script>
 <link rel="stylesheet" type="text/css" href="css/rem-util.css" />
-<style>
-.navbar {
-	padding: 0rem !important;
-}
-
-.navbar-brand {
-	padding: 0 !important;
-}
-
-.border-left-blue {
-	border-left: 4px solid #17a2b8 !important;
-}
-</style>
 </head>
 <body>
-	<header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="#"><img class="img-fluid"
-				src="Images/logoSmall.jpg" / alt="UIC Logo"></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarText" aria-controls="navbarText"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarText">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link px-2" href="#">Equipment
-							Tracking</a></li>
-					<li class="nav-item"><a class="nav-link px-2" href="#">Ulcer
-							Staging</a></li>
-					<li class="nav-item"><a class="nav-link px-2" href="#">Nurse
-							and Patients</a></li>
-				</ul>
-				<span class="navbar-text pr-2 px-2"> Monique </span>
-			</div>
-		</nav>
-	</header>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Patient Ledger</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="equipmentDetails.jsp">Equipment Tracker</a></li>
+				<li class="nav-item active"><a class="nav-link" href="#">Patient
+						Ledger</a></li>
+			</ul>
+		</div>
+	</nav>
 	<div class="container">
 		<div class="row mt-5 justify-content-center border">
 

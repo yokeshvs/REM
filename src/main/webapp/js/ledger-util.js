@@ -24,7 +24,7 @@ $(function() {
                     deviceUsed: deviceUsed
                 }
             }),
-            url: 'http://localhost:8080/REM/api/hyperledger/patientLedger',
+            url: '/REM/api/hyperledger/patientLedger',
             success: function(data) {
                 console.log('success: ' + data);
             }

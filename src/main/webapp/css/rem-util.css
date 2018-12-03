@@ -52,16 +52,36 @@
 	table-layout: fixed;
 }
 
-tbody{
+tbody {
 	display: block;
-    overflow-y: auto;
-    height: 400px;
+	overflow-y: auto;
+	height: 400px;
 }
 
-thead{
+thead {
 	display: block;
 }
 
 tr, td, th {
-    width: 250px;
+	width: 250px;
+}
+
+.home-option-container {
+	margin-top: 100px;
+	text-align: center;
+}
+
+.home-option-details {
+	display: inline-block;
+	width: 48%;
+	text-align: center;
+}
+
+.home-option-text {
+	padding: 20px;
+	font-size: 25px;
+}
+
+.fas {
+	color: #343a40;
 }

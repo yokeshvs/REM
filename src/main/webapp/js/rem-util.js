@@ -3,7 +3,7 @@ $(function() {
         type: 'GET',
         contentType: 'application/json',
         dataType: 'json',
-        url: 'http://localhost:8080/REM/api/hyperledger/devices',
+        url: '/REM/api/hyperledger/devices',
         success: function(data) {
             var devices = data.values;
             var $deviceSelector = $("#deviceSelector");
@@ -57,7 +57,7 @@ $(function() {
             type: 'GET',
             contentType: 'application/json',
             dataType: 'json',
-            url: 'http://localhost:8080/REM/api/hyperledger/device?deviceId=' + selectedDevice,
+            url: '/REM/api/hyperledger/device?deviceId=' + selectedDevice,
             success: function(data) {
                 $("#eq-detail-deviceID").text(selectedDevice);
                 $("#eq-detail-edgeID").text(data.EdgeID);
@@ -78,7 +78,7 @@ $(function() {
             type: 'GET',
             contentType: 'application/json',
             dataType: 'json',
-            url: 'http://localhost:8080/REM/api/hyperledger/deviceHistory?deviceId=' + selectedDevice,
+            url: '/REM/api/hyperledger/deviceHistory?deviceId=' + selectedDevice,
             success: function(data) {
                 var history = data.values;
                 var $eqDetailsTable = $("#eq-details-table-data");
