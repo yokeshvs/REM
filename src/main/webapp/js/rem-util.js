@@ -1,5 +1,17 @@
 $(function() {
-    $.ajax({
+	var devicesConfig;
+//	addAjaxMask();
+	$.ajax({
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        url: '/REM/api/firebase/devicesConfig',
+        success: function(data) {
+            devicesConfig = data;
+        }
+    });
+	
+	$.ajax({
         type: 'GET',
         contentType: 'application/json',
         dataType: 'json',
@@ -8,11 +20,22 @@ $(function() {
             var devices = data.values;
             var $deviceSelector = $("#deviceSelector");
             $.each(devices, function(index, device) {
-                $deviceSelector.append("<option>" + device.id + "</option>");
+                $deviceSelector.append("<option value='" + device.id + "'>" + devicesConfig[device.id] + "</option>");
             });
+//            removeAjaxMask();
         }
     });
 
+	function addAjaxMask() {
+		$('#separator').removeClass('hide');
+		$('#container').addClass('blur');
+	}
+
+	function removeAjaxMask() {
+		$('#separator').addClass('hide');
+		$('#container').removeClass('blur');
+	}
+	
     function createUpdatePieChart() {
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
@@ -59,8 +82,8 @@ $(function() {
             dataType: 'json',
             url: '/REM/api/hyperledger/device?deviceId=' + selectedDevice,
             success: function(data) {
-                $("#eq-detail-deviceID").text(selectedDevice);
-                $("#eq-detail-edgeID").text(data.EdgeID);
+                $("#eq-detail-deviceID").text(devicesConfig[selectedDevice]);
+                $("#eq-detail-edgeID").text(devicesConfig[data.EdgeID]);
                 $("#eq-detail-timeStamp").text(data.Timestamp);
                 $("#eq-detail-status").text(data.DStatus);
                 $("#device-details-container").removeClass('hide');
@@ -84,19 +107,22 @@ $(function() {
                 var $eqDetailsTable = $("#eq-details-table-data");
                 for (i = history.length - 1; i >= 0; i--) {
                     if (history[i].EdgeID !== '' && history[i].DStatus !== '' && history[i].Timestamp !== '') {
-                        $eqDetailsTable.append("<tr><td>" + history[i].EdgeID + "</td><td>" + history[i].DStatus + "</td><td>" + history[i].Timestamp + "</td></tr>");
+                        $eqDetailsTable.append("<tr><td>" + devicesConfig[history[i].EdgeID] + "</td><td>" + history[i].DStatus + "</td><td>" + history[i].Timestamp + "</td></tr>");
                     }
                 }
+//                removeAjaxMask();
             }
         });
         $('#eq-details-table').removeClass('hide');
     }
 
     $("#deviceSelector").on('change', function() {
+//    	addAjaxMask();
         updateDeviceInfo();
     });
 
     $("#sync-eq-details").on('click', function() {
+//    	addAjaxMask();
         updateDeviceInfo();
     });
 

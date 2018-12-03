@@ -25,11 +25,17 @@ public interface FirebaseService {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Map<Integer, LedgerDevice> getClosestEdge();
+	public Map<String, LedgerDevice> getClosestEdge();
 
 	@Path("/deviceInfo")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateDeviceInfo(String message);
+	
+	@Path("/devicesConfig")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDevicesConfig();
 }

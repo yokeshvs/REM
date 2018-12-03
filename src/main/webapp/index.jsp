@@ -65,7 +65,6 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
-	<script type="text/javascript" src="js/rem-util.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/rem-util.css" />
 	<link rel="stylesheet"
 		href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"

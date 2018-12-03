@@ -1,87 +1,103 @@
 .device-selector-element {
-	display: inline-block;
+     display: inline-block;
 }
-
-.device-selector-container {
-	margin-top: 50px;
-	text-align: center;
+ .device-selector-container {
+     margin-top: 50px;
+     text-align: center;
 }
-
-.menu-label {
-	font-size: 25px;
+ .menu-label {
+     font-size: 25px;
 }
-
-.eq-detail-container {
-	text-align: center;
+ .eq-detail-container {
+     text-align: center;
 }
-
-.hide {
-	display: none;
+ .hide {
+     display: none;
 }
-
-.eq-detail-label, .eq-detail-content {
-	display: inline-block;
+ .eq-detail-label, .eq-detail-content {
+     display: inline-block;
 }
-
-.eq-detail-label {
-	font-size: 20px;
+ .eq-detail-label {
+     font-size: 20px;
 }
-
-.device-container-title {
-	margin-top: 40px;
-	text-align: center;
+ .device-container-title {
+     margin-top: 40px;
+     text-align: center;
 }
-
-.container-title {
-	font-size: 32px;
-	font-weight: 300;
+ .container-title {
+     font-size: 32px;
+     font-weight: 300;
 }
-
-.container {
-	font-family: segoe UI, sans-serif;
-	font-weight: 300;
+ .container {
+     font-family: segoe UI, sans-serif;
+     font-weight: 300;
 }
-
-.eq-details-table {
-	margin-top: 60px;
-	width: 70%;
-	margin-left: 15%;
-	text-align: center;
-	height: 400px;
-	overflow-y: scroll;
-	table-layout: fixed;
+ .eq-details-table {
+     margin-top: 60px;
+     width: 70%;
+     margin-left: 15%;
+     text-align: center;
+     height: 400px;
+     overflow-y: scroll;
+     table-layout: fixed;
 }
-
-tbody {
-	display: block;
-	overflow-y: auto;
-	height: 400px;
+ tbody {
+     display: block;
+     overflow-y: auto;
+     height: 400px;
 }
-
-thead {
-	display: block;
+ thead {
+     display: block;
 }
-
-tr, td, th {
-	width: 250px;
+ tr, td, th {
+     width: 250px;
 }
-
-.home-option-container {
-	margin-top: 100px;
-	text-align: center;
+ .home-option-container {
+     margin-top: 100px;
+     text-align: center;
 }
-
-.home-option-details {
-	display: inline-block;
-	width: 48%;
-	text-align: center;
+ .home-option-details {
+     display: inline-block;
+     width: 48%;
+     text-align: center;
 }
-
-.home-option-text {
-	padding: 20px;
-	font-size: 25px;
+ .home-option-text {
+     padding: 20px;
+     font-size: 25px;
 }
-
-.fas {
-	color: #343a40;
+ .fas {
+     color: #343a40;
+}
+ .loader {
+     border: 10px solid #f3f3f3;
+     border-radius: 50%;
+     border-top: 10px solid #343a40;
+     width: 50px;
+     height: 50px;
+     -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+     animation: spin 2s linear infinite;
+     margin-left: 35%;
+     margin-top: 10%;
+     position: absolute;
+}
+/* Safari */
+ @ -webkit-keyframes spin {
+     0% {
+         -webkit-transform: rotate(0deg);
+    }
+     100% {
+         -webkit-transform : rotate (360deg);
+    }
+}
+ @ keyframes spin {
+     0% {
+         transform: rotate(0deg);
+    }
+     100% {
+         transform : rotate (360deg);
+    }
+}
+ .blur {
+     opacity: 0.2;
 }

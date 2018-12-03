@@ -68,10 +68,12 @@ public class REMMqttCallback implements MqttCallback {
 //						LOGGER.debug("\n**************\nREMMqttCallback::messageArrived::message: {}\n**************",
 //								message.toString());
 
-					} else if (topic.equalsIgnoreCase(REMConstants.DEVICE_TOPIC_1)) {
+					} else if (topic.equalsIgnoreCase(REMConstants.DEVICE_TOPIC_2)) {
 //						LOGGER.DEBUG("\N**************\NREMMQTTCALLBACK::MESSAGEARRIVED::MESSAGE: {}\N**************",
 //								message.toString());
-						firebaseService.updateDeviceInfo(message.toString());
+						if (!message.toString().contains("connected")) {
+							firebaseService.updateDeviceInfo(message.toString());
+						}
 //						LOGGER.debug("\n**************\nREMMqttCallback::messageupdated::successful\n**************");
 					}
 				}
@@ -123,8 +125,9 @@ public class REMMqttCallback implements MqttCallback {
 
 	private List<String> getListOfMqttTopics() {
 		List<String> topics = new ArrayList<String>();
-		topics.add(REMConstants.DEVICE_TOPIC);
-		topics.add(REMConstants.DEVICE_TOPIC_1);
+//		topics.add(REMConstants.DEVICE_TOPIC);
+//		topics.add(REMConstants.DEVICE_TOPIC_1);
+		topics.add(REMConstants.DEVICE_TOPIC_2);
 		LOGGER.debug("REMListener::getListOfMqttTopics::Topics: {}", topics.toString());
 		return topics;
 	}

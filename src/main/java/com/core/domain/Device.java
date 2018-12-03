@@ -1,14 +1,14 @@
 package com.core.domain;
 
 public class Device {
-	private Integer deviceId;
+	private String deviceId;
 	private DeviceDetails deviceDetails;
 
-	public Integer getDeviceID() {
+	public String getDeviceID() {
 		return deviceId;
 	}
 
-	public void setDeviceID(Integer deviceId) {
+	public void setDeviceID(String deviceId) {
 		this.deviceId = deviceId;
 	}
 

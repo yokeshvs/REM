@@ -39,7 +39,7 @@
 			</ul>
 		</div>
 	</nav>
-
+	<div id="separator" class="loader hide"></div>
 	<div class="container">
 		<!-- Content here -->
 		<div class="device-selector-container">

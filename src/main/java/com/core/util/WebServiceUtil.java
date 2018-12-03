@@ -90,6 +90,15 @@ public class WebServiceUtil {
 		}
 		return outputData;
 	}
+	
+	public static String getDevicesConfig() {
+		String outputData = REMConstants.EMPTY_STRING;
+		Response response = getFirebaseData(REMConstants.FB_DEVICES_CONFIG);
+		if (response != null) {
+			outputData = response.readEntity(String.class);
+		}
+		return outputData;
+	}
 
 	public static Response getFirebaseData(String targetURL) {
 		Client client = ClientBuilder.newClient();

@@ -28,10 +28,9 @@ public class LedgerSyncService {
 	private static final Logger LOGGER = LogManager.getLogger("LedgerSyncService");
 
 	public void syncLedger() {
-//		LOGGER.debug("LedgerSyncService:: inside syncLedger");
-		Map<Integer, LedgerDevice> ledgerDevices = firebaseService.getClosestEdge();
-//		LOGGER.debug("LedgerSyncService::syncLedger::ledgerDevices: " + ledgerDevices);
-		for (Integer deviceId : ledgerDevices.keySet()) {
+		Map<String, LedgerDevice> ledgerDevices = firebaseService.getClosestEdge();
+		LOGGER.debug("LedgerSyncService::syncLedger::ledgerDevices: " + ledgerDevices);
+		for (String deviceId : ledgerDevices.keySet()) {
 			LedgerDevice currentDevice = ledgerDevices.get(deviceId);
 			Device device = new Device();
 			device.setDeviceID(deviceId);
