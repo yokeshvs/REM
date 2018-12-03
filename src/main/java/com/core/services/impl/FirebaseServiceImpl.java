@@ -44,9 +44,10 @@ public class FirebaseServiceImpl implements FirebaseService {
 		String deviceInfo = WebServiceUtil.getDeviceInfo();
 		LOGGER.debug("FirebaseServiceImpl:getClosestEdge::deviceInfo: " + deviceInfo);
 		JsonArray devices = new JsonParser().parse(deviceInfo).getAsJsonArray();
-		Map<Integer, LedgerDevice> ledgerDevices = new HashMap<>(); 
+		Map<Integer, LedgerDevice> ledgerDevices = new HashMap<>();
 
 		for (int i = 0; i < devices.size(); i++) {
+			long latestSignalTime = Long.MIN_VALUE;
 			if (devices.get(i) != null && !devices.get(i).toString().equalsIgnoreCase("null")) {
 				JsonObject devicesData = devices.get(i).getAsJsonObject();
 				JSONObject currentDevice = new JSONObject(devicesData.toString());
@@ -56,24 +57,38 @@ public class FirebaseServiceImpl implements FirebaseService {
 				Integer deviceID = 0;
 				String edgeID = REMConstants.EMPTY_STRING;
 				long timeLimit = Long.MAX_VALUE;
+				long currentEdgeTimeStamp = Long.MIN_VALUE;
 				long currentTime = Calendar.getInstance(TimeZone.getTimeZone("PST")).getTimeInMillis();
 				boolean status = false;
+
+				for (int j = 0; j < properties.length; j++) {
+					JSONObject currentEdge = (JSONObject) currentDevice.get(properties[j]);
+					currentSignalStrength = (Integer) currentEdge.get("distance");
+					currentEdgeTimeStamp = (long) currentEdge.get("time");
+					if (currentEdgeTimeStamp > latestSignalTime) {
+						latestSignalTime = currentEdgeTimeStamp;
+					}
+				}
+				LOGGER.debug("FirebaseServiceImpl:getClosestEdge::latestSignalTime: " + latestSignalTime);
 				for (int j = 0; j < properties.length; j++) {
 					JSONObject currentEdge = (JSONObject) currentDevice.get(properties[j]);
 					currentSignalStrength = (Integer) currentEdge.get("distance");
 					currentTime = Calendar.getInstance(TimeZone.getTimeZone("PST")).getTimeInMillis();
-					timeLimit = currentTime - (long) currentEdge.get("time");
+					long edgeTime = (long) currentEdge.get("time");
+					timeLimit = currentTime - edgeTime;
 					LOGGER.debug("FirebaseServiceImpl:getClosestEdge::currentTime: " + currentTime);
 					LOGGER.debug("FirebaseServiceImpl:getClosestEdge::timeLimit: " + timeLimit);
-					if (currentSignalStrength > signalStrength) {
-						signalStrength = currentSignalStrength;
-						edgeID = properties[j];
-						deviceID = (Integer) currentEdge.get("deviceId");
-					}
-					if (timeLimit < 90000) {
-						status = true;
-					} else {
-						status = false;
+					if (latestSignalTime - edgeTime < 5000) {
+						if (currentSignalStrength > signalStrength) {
+							signalStrength = currentSignalStrength;
+							edgeID = properties[j];
+							deviceID = (Integer) currentEdge.get("deviceId");
+						}
+						if (timeLimit < 90000) {
+							status = true;
+						} else {
+							status = false;
+						}
 					}
 				}
 				if (deviceID != null && deviceID > 0) {

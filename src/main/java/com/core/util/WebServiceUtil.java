@@ -100,7 +100,6 @@ public class WebServiceUtil {
 
 	public static Response updateDeviceLocation(String apiURL, String json) {
 		Client client = ClientBuilder.newClient();
-		LOGGER.debug("WebServiceUtil:updateDeviceLocation::json: " + json);
 		WebTarget resource = client.target(apiURL);
 		Response response = resource.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
 				.put(Entity.entity(json, MediaType.APPLICATION_JSON));
