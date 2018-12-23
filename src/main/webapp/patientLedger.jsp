@@ -100,23 +100,15 @@
 						Date</label> <input type="number" class="form-control" id="dischargeDate"
 						placeholder="102212010">
 				</div>
-				<fieldset class="form-group">
-					<legend class="h6 font-weight-bold">Device used</legend>
-					<div class="form-check">
-						<label class="form-check-label"> <input type="radio"
-							class="form-check-input" name="deviceUsed" id="optionsRadios1"
-							value="true" checked> yes
-						</label>
-					</div>
-					<div class="form-check">
-						<label class="form-check-label"> <input type="radio"
-							class="form-check-input" name="deviceUsed" id="optionsRadios2"
-							value="false"> No
-						</label>
-					</div>
-
-
-				</fieldset>
+				<div class="form-group">
+					<label for="deviceUsed" class="font-weight-bold mb-1">Device
+						Used</label> <select id="deviceUsed" class="form-control">
+						<option value="0">Please select a device</option>
+						<option value="Sara Study">Sara Study</option>
+						<option value="Hover Mat">Hover Mat</option>
+						<option value="ROHO Cushion">ROHO Cushion</option>
+					</select>
+				</div>
 				<div class="row justify-content-center mb-5">
 					<div class="col-sm-12 col-md-6 col-lg-3">
 						<button type="button" class="btn btn-primary btn-block"

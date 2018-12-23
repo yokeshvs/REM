@@ -46,7 +46,7 @@
 				<div class="home-option-text">Track your equipment</div>
 			</div>
 			<div class="home-option-details">
-				<a href="equipmentDetails.jsp"><i
+				<a href="patientLedger.jsp"><i
 					class="fas fa-notes-medical fa-9x"></i></a>
 				<div class="home-option-text">Enter Patient details</div>
 			</div>
